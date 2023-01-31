@@ -1,2 +1,3 @@
 #!/usr/bin/env bash
+# list all processes in recursive graph form
 ps -aux --forest
