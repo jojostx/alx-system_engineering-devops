@@ -1,8 +1,9 @@
 #!/usr/bin/python3
-""" Python script that, queries a REST API, for all the employee's todos,
+""" script that queries a REST API for all the employee's todos,
 and exports the data in JSON format to file. """
 import json
 import requests
+
 
 if __name__ == "__main__":
     url = 'https://jsonplaceholder.typicode.com/'

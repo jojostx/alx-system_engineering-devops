@@ -1,9 +1,10 @@
 #!/usr/bin/python3
-""" Python script that, queries a REST API, for a given employee ID,
+""" queries JSONPlaceholder API, for a given employee ID,
 exports information about their TODO list progress in JSON format to file. """
 import json
 import requests
 import sys
+
 
 if __name__ == "__main__":
     url = 'https://jsonplaceholder.typicode.com/'
