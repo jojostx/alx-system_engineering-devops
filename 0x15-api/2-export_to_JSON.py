@@ -34,4 +34,3 @@ if __name__ == "__main__":
 
     with open(filename, mode="w") as f:
         json.dump(todoUser, f)
-
