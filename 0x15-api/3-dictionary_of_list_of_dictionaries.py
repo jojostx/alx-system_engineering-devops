@@ -1,34 +1,30 @@
 #!/usr/bin/python3
-""" script that queries a REST API for all the employee's todos,
-and exports the data in JSON format to file. """
-import json
-import requests
-
+"""Exports data in the JSON format"""
 
 if __name__ == "__main__":
-    url = 'https://jsonplaceholder.typicode.com/'
-    json_path = f"todo_all_employees.json"
-    d_tasks = {}
 
-    res = requests.get(f"{url}users")
-    users = res.json()
+    import json
+    import requests
+    import sys
+
+    users = requests.get("https://jsonplaceholder.typicode.com/users")
+    users = users.json()
+    todos = requests.get('https://jsonplaceholder.typicode.com/todos')
+    todos = todos.json()
+    todoAll = {}
 
     for user in users:
-        u_id = user.get('id')
-        res = requests.get(f"{url}todos?userId={u_id}")
-        tasks = res.json()
-        name = user.get('username')
+        taskList = []
+        for task in todos:
+            if task.get('userId') == user.get('id'):
+                taskDict = {
+                        "username": user.get('username'),
+                        "task": task.get('title'),
+                        "completed": task.get('completed')
+                        }
+                taskList.append(taskDict)
+        todoAll[user.get('id')] = taskList
 
-        l_task = []
-        for task in tasks:
-            task_dict = {
-                "username": name,
-                "task": task.get('title'),
-                "completed": task.get('completed')
-            }
-            l_task.append(task_dict)
+    with open('todo_all_employees.json', mode='w') as f:
+        json.dump(todoAll, f)
 
-        d_tasks[str(u_id)] = l_task
-
-    with open(json_path, 'w') as f:
-        json.dump(d_tasks, f)
